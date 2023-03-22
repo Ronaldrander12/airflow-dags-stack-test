@@ -18,13 +18,15 @@ class IngestionApi():
     self.n_req = 10000
     self.base_url = "https://imunizacao-es.saude.gov.br/"
     self.creds = Credentials().Get_Api_Creds(conn_api_id='conn_api_creds')
-    self.base_dataset = f"api_sus/{str(self.dt_load)}"
-    self.base_arq = f"api_{str(self.dt_load)}"
     self.target_table = "api_sus"
+    
     if dt_load:
       self.dt_load = dt_load
     else:
       self.dt_load = date.today() - timedelta(days=1)
+    
+    self.base_dataset = f"api_sus/{str(self.dt_load)}"
+    self.base_arq = f"api_{str(self.dt_load)}"
     self.storage = Storage()
 
   def Load_Request(self) -> list:
@@ -109,7 +111,7 @@ class IngestionApi():
   def Load_Postgres(self) -> None:
     df_load = self.Read_Raw()
 
-    database = DataBase(conn_db_id="conn_api_sus")
+    database = DataBase(conn_db_id="conn_db_api")
     
     return database.Insert_Registers(
       df=df_load,
