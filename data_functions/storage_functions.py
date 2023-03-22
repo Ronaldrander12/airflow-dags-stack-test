@@ -14,7 +14,7 @@ from data_functions.credentials_functions import Credentials
 
 class Storage():
   def __init__(self):
-    self.creds = Credentials.Get_Gcp_Creds()
+    self.creds = Credentials().Get_Gcp_Creds()
     self.project_id = "algebraic-notch-380814"
     self.base_bucket = "datalake-stack-test"
 
@@ -54,7 +54,7 @@ class Storage():
 
 class BigQuery:
   def __init__(self) -> None:
-    self.creds = Credentials.Get_Gcp_Creds()
+    self.creds = Credentials().Get_Gcp_Creds()
     self.project_id = "algebraic-notch-380814"
 
   def Insert_Registers(self, df:DataFrame, dataset_name:str, table_name:str, if_exists:str="append"):
