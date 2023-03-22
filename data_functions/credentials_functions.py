@@ -5,26 +5,16 @@ from pathlib import Path
 
 from google.oauth2 import service_account
 from airflow.models.connection import Connection
+from airflow.models import Variable
 
 class Credentials():
     def __init__(self) -> None:
         self.conn_airflow = Connection().get_connection_from_secrets(conn_id="gcp_default")        
 
     def Get_Gcp_Creds(self):
-        base_file_creds = dict()
+        base_file_creds = Variable.get("CREDS_GCP")
 
-        conn_key = str(self.conn_airflow.login)        
-        conn_pass = str(self.conn_airflow.get_password())
-        conn_extra = json.loads(self.conn_airflow.get_extra())
-
-        base_file_creds["private_key_id"] = conn_key
-        base_file_creds["private_key"] = conn_pass
-        base_file_creds.update(conn_extra)
-        
-        base_file_json = json.dumps(base_file_creds)
-        json_acct_info = json.loads(base_file_json)
-        print(f"base_file_json: {base_file_json}\njson_acct_info: {json_acct_info}")
-
+        json_acct_info = json.loads(base_file_creds)
         
         access_creds = service_account.Credentials.from_service_account_info(json_acct_info)
 
