@@ -109,7 +109,7 @@ class IngestionApi():
   def Load_Postgres(self) -> None:
     df_load = self.Read_Raw()
 
-    database = DataBase(conn_db_id="conn_db_api")
+    database = DataBase(conn_db_id="conn_db_api", instancia_ref="postgres")
     
     return database.Insert_Registers(
       df=df_load,
