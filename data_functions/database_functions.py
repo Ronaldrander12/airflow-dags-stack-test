@@ -41,7 +41,7 @@ class DataBase():
         
 class FireBase():
   def __init__(self) -> None:
-    self.creds = Credentials.Get_Gcp_Creds()
+    self.creds = Credentials().Get_Gcp_Creds()
     self.project_id = "algebraic-notch-380814"
     self.client = self.Get_Client()
 
