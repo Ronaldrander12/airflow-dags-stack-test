@@ -7,7 +7,6 @@ from datetime import datetime, date, timedelta
 import requests
 import pandas as pd
 from pandas import DataFrame
-from airflow.models import Variable
 
 from data_functions.credentials_functions import Credentials
 from data_functions.storage_functions import Storage, BigQuery
@@ -41,8 +40,10 @@ class IngestionApi():
       }
       
       response = requests.request("POST", base_url, headers=headers, data=payload)
+      print(response)
       
-      payload = response.json().get('hits').get('hits')  
+      payload = response.json().get('hits').get('hits')
+      
 
     return payload
   
