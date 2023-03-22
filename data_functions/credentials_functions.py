@@ -9,7 +9,7 @@ from airflow.models import Variable
 
 class Credentials():
     def __init__(self) -> None:
-        self.conn_airflow = Connection().get_connection_from_secrets(conn_id="gcp_default")        
+        self.conn_api = Connection().get_connection_from_secrets(conn_id="conn_api_creds")        
 
     def Get_Gcp_Creds(self):
         base_file_creds = Variable.get("CREDS_GCP")
@@ -21,8 +21,8 @@ class Credentials():
         return access_creds    
 
     def Get_Api_Creds(self, conn_api_id:str) -> str:
-        api_user = str(self.conn_airflow.login)
-        api_pass = str(self.conn_airflow.get_password())
+        api_user = str(self.conn_api.login)
+        api_pass = str(self.conn_api.get_password())
 
         base_format = f"{api_user}:{api_pass}"
         print(base_format)
