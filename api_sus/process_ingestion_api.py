@@ -40,11 +40,8 @@ class IngestionApi():
       }
       
       response = requests.request("POST", base_url, headers=headers, data=payload)
-      print(response)
-      
       payload = response.json().get('hits').get('hits')
       
-
     return payload
   
   def Load_Transient(self) -> None:    

@@ -25,11 +25,9 @@ class Credentials():
         api_pass = str(self.conn_api.get_password())
 
         base_format = f"{api_user}:{api_pass}"
-        print(base_format)
         bytes_format = base_format.encode('ascii')
         base64_format = base64.b64encode(bytes_format).decode('ascii')
-        print(base64_format)
-        
+
         return base64_format
 
     def Get_Db_Creds(self, conn_db_id:str, instancia_ref:str) -> dict:
