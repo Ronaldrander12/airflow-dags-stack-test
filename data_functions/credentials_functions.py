@@ -23,6 +23,8 @@ class Credentials():
         
         base_file_json = json.dumps(base_file_creds)
         json_acct_info = json.loads(base_file_json)
+        print(f"base_file_json: {base_file_json}\njson_acct_info: {json_acct_info}")
+
         
         access_creds = service_account.Credentials.from_service_account_info(json_acct_info)
 
