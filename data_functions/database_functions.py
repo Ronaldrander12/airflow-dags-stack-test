@@ -47,6 +47,8 @@ class FireBase():
 
   def Get_Client(self):
     client = firestore_v1.Client(project=self.project_id, credentials=self.creds)
+
+    return client
   
   def Insert_Documents(self, payload:list, dt_ref:date, collection_name:str):
     collection = self.client.collection(collection_name)
