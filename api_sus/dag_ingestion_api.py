@@ -8,7 +8,7 @@ default_args = {
 
 default_requirements = ["pandas", "sqlalchemy", "pyodbc", "pyarrow", "fastparquet", "requests", "google-cloud-storage", "google-cloud-bigquery","google-auth", "gcsfs", "google-cloud-firestore", "pandas-gbq"]
 
-@dag(dag_id="Dag_Ingestion_Api_Sus", schedule_interval=None, default_args=default_args)
+@dag(dag_id="Dag_Ingestion_Api_Sus", schedule_interval="0 6 * * *", default_args=default_args)
 def Dag_Ingestion_Api_Sus():
 
   @task.virtualenv(task_id="Load_DataLake_Transient", requirements=default_requirements, system_site_packages=True)
