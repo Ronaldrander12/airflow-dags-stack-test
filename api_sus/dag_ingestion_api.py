@@ -14,37 +14,82 @@ def Dag_Ingestion_Api_Sus():
   @task.virtualenv(task_id="Load_DataLake_Transient", requirements=default_requirements, system_site_packages=True)
   def Load_DataLake_Transient():
     from api_sus.process_ingestion_api import IngestionApi
+    from datetime import datetime, date
+    from airflow.models import Variable
     
-    main = IngestionApi()
-    main.Load_Transient()
+    load_dates = Variable.get("LOAD_DATES")
+    if load_dates:
+      dates = [datetime.strptime(dt.strip(), "%d/%m/%Y").date() for dt in load_dates.split(',')]
+      for dt in dates:
+        main = IngestionApi(dt_load=dt)
+        main.Load_Transient()
+    else:
+      main = IngestionApi()
+      main.Load_Transient()
 
   @task.virtualenv(task_id="Load_DataLake_Raw", requirements=default_requirements, system_site_packages=True)
   def Load_DataLake_Raw():
     from api_sus.process_ingestion_api import IngestionApi
+    from datetime import datetime, date
+    from airflow.models import Variable
     
-    main = IngestionApi()
-    main.Load_Raw()
+    load_dates = Variable.get("LOAD_DATES")
+    if load_dates:
+      dates = [datetime.strptime(dt.strip(), "%d/%m/%Y").date() for dt in load_dates.split(',')]
+      for dt in dates:
+        main = IngestionApi(dt_load=dt)
+        main.Load_Raw()
+    else:
+      main = IngestionApi()
+      main.Load_Raw()
 
   @task.virtualenv(task_id="Load_Database_Postgres", requirements=default_requirements, system_site_packages=True)
   def Load_Database_Postgres():
     from api_sus.process_ingestion_api import IngestionApi
+    from datetime import datetime, date
+    from airflow.models import Variable
     
-    main = IngestionApi()
-    main.Load_Postgres()
+    load_dates = Variable.get("LOAD_DATES")
+    if load_dates:
+      dates = [datetime.strptime(dt.strip(), "%d/%m/%Y").date() for dt in load_dates.split(',')]
+      for dt in dates:
+        main = IngestionApi(dt_load=dt)
+        main.Load_Postgres()
+    else:
+      main = IngestionApi()
+      main.Load_Postgres()
 
   @task.virtualenv(task_id="Load_Database_Firebase", requirements=default_requirements, system_site_packages=True)
   def Load_Database_Firebase():
     from api_sus.process_ingestion_api import IngestionApi
+    from datetime import datetime, date
+    from airflow.models import Variable
     
-    main = IngestionApi()
-    main.Load_Firebase()
+    load_dates = Variable.get("LOAD_DATES")
+    if load_dates:
+      dates = [datetime.strptime(dt.strip(), "%d/%m/%Y").date() for dt in load_dates.split(',')]
+      for dt in dates:
+        main = IngestionApi(dt_load=dt)
+        main.Load_Firebase()
+    else:
+      main = IngestionApi()
+      main.Load_Firebase()
 
   @task.virtualenv(task_id="Load_Bigquery", requirements=default_requirements, system_site_packages=True)
   def Load_Bigquery():
     from api_sus.process_ingestion_api import IngestionApi
+    from datetime import datetime, date
+    from airflow.models import Variable
     
-    main = IngestionApi()
-    main.Load_Bigquery()
+    load_dates = Variable.get("LOAD_DATES")
+    if load_dates:
+      dates = [datetime.strptime(dt.strip(), "%d/%m/%Y").date() for dt in load_dates.split(',')]
+      for dt in dates:
+        main = IngestionApi(dt_load=dt)
+        main.Load_Bigquery()
+    else:
+      main = IngestionApi()
+      main.Load_Bigquery()
 
   Process_Load_Transient_Task = Load_DataLake_Transient()
   Process_Load_Raw_Task = Load_DataLake_Raw()
